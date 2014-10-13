@@ -28,18 +28,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.apache.bcel.Repository;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.Platform;
-
-import extensions.ResourceManagerDescriptor;
 
 public class CompilationSequence {
 
-	private static final String AdditionalResourceManagerPluginId = 
-			Activator.PLUGIN_ID + ".AdditionalResourceManager";
-	private static final String AdditionalResourceManagerPluginElementName = 
-			"class";
-
+	
+	private AdditionalResourceManager additionalResourceManager = new AdditionalResourceManager(); 
+	
     private static class Observer implements RestartableMethodObserver, AnalysisObserver {
         private RestartableMethodObserver rdelegate;
         private AnalysisObserver adelegate;
@@ -416,7 +410,7 @@ public class CompilationSequence {
 
                 ResourceManager rManager = config.getResourceManager();
                 if (rManager == null) {
-                    rManager = createResourceManager();
+                    rManager = additionalResourceManager.createResorceManager();
                 }
                 compiler.writeClassesToFile("classes", patcher, config, foCalc, usedElementsObserver, outputFolder, cregistry, rManager, out);
 
@@ -448,42 +442,7 @@ public class CompilationSequence {
         Repository.clearCache();
     }
 
-	private ResourceManager createResourceManager() {
-		
-		PluginResourceManager manager = new PluginResourceManager();
-	    IConfigurationElement[] configurationElements = Platform.getExtensionRegistry().getConfigurationElementsFor(AdditionalResourceManagerPluginId);
-		if(configurationElements.length == 0) {
-			return manager;
-		}
-		CompositeResourceManager composite = new CompositeResourceManager();
-		composite.addResourceManager(manager);
-		
-	    for(IConfigurationElement element : configurationElements) {
-			this.addResourceManager(element, composite);
-		}
-	    return composite;
-		
-	}
-
-		private void addResourceManager(IConfigurationElement element,
-			CompositeResourceManager composite) {
-
-			try {
-				Object executable = element.createExecutableExtension(AdditionalResourceManagerPluginElementName);
-				if(executable instanceof ResourceManagerDescriptor) {
-					ResourceManagerDescriptor rmd = (ResourceManagerDescriptor)executable;
-					composite.addResourceManager(new PluginResourceManager(rmd.getBundleName(), rmd.getResourceNames()));
-				}
-			}
-			catch (Exception e) {
-				//TODO. I don't known a better strategy for CoreException.
-				//But, I don't want to propagate in order to lets execute other elements
-				e.printStackTrace();
-			}
-	}
-
-
-    private void writeTimingInformation(String outputFolder, PrintStream out, StackDepthAnalyser sda, FieldOffsetCalculator foCalc, ByteCodePatcher patcher, int maxSwitchSize, int maxVTableSize) {
+	private void writeTimingInformation(String outputFolder, PrintStream out, StackDepthAnalyser sda, FieldOffsetCalculator foCalc, ByteCodePatcher patcher, int maxSwitchSize, int maxVTableSize) {
         FileOutputStream tinfo = null;
         try {
             StringBuffer tinfoPath = new StringBuffer();
