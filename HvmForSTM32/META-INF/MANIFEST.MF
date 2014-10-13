@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: HvmForSTM32
+Bundle-SymbolicName: HvmForSTM32;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: hvmforstm32.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ icecaptools,
+ org.eclipse.cdt.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: lib/bcel-6.0.jar,
+ .
+Import-Package: org.eclipse.core.resources
