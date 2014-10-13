@@ -6,6 +6,7 @@ import icecaptools.IcecapProgressMonitor;
 import icecaptools.IcecapTool;
 import icecaptools.PluginResourceManager;
 import icecaptools.conversion.ConversionConfiguration;
+import icecaptools.extensions.ExtensionManager;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -28,22 +29,17 @@ import com.oracle.xmlns.internal.webservices.jaxws_databinding.JavaMethod;
 
 import extensions.ArchitectureDependentCodeGenerator;
 
-public class ArchitectureDependentCodeDetector {
-
-	public static String CodeGeneratorExtensionPoint = Activator.PLUGIN_ID
-			+ ".CodeGenerator";
-	public static String CodeGeneratorElement = "class";
+public class ArchitectureDependentCodeDetector extends ExtensionManager<ArchitectureDependentCodeGenerator>{
 
 	private String currentFile;
 	private OutputStream stream;
 	private CharSequence token;
 	int counter;
 
-	private List<ArchitectureDependentCodeGenerator> extensions;
 
 	public ArchitectureDependentCodeDetector(CharSequence token) {
+		super();
 		this.token = token;
-		this.createExtensions();
 	}
 
 	public ArchitectureDependentCodeDetector() {
@@ -64,27 +60,9 @@ public class ArchitectureDependentCodeDetector {
 		}
 	}
 
-	protected void createExtensions() {
-		this.extensions = new ArrayList<ArchitectureDependentCodeGenerator>();
-
-		IConfigurationElement[] configurationElements = Platform
-				.getExtensionRegistry().getConfigurationElementsFor(
-						CodeGeneratorExtensionPoint);
-		for (IConfigurationElement element : configurationElements) {
-			try {
-				Object executableExtension = element
-						.createExecutableExtension(CodeGeneratorElement);
-				this.extensions
-						.add(((ArchitectureDependentCodeGenerator) executableExtension));
-			} catch (CoreException e) {
-				// TODO Skip and proccess another element?;
-				e.printStackTrace();
-			}
-		}
-	}
 
 	private void dispatchTokenDetectedEvent() {
-		for (ArchitectureDependentCodeGenerator extension : extensions) {
+		for (ArchitectureDependentCodeGenerator extension : this.getExtensions()) {
 			try {
 				extension.tokenDetected(this.currentFile, this.stream);
 			} catch (IOException e) {
@@ -93,26 +71,15 @@ public class ArchitectureDependentCodeDetector {
 		}
 	}
 
-	public void startAnalysis() {
-		for (ArchitectureDependentCodeGenerator extension : extensions) {
-			extension.startNativeFunctionAnalysis();;
-		}
-	}
-	
-	public void endAnalysis() {
-		for (ArchitectureDependentCodeGenerator extension : extensions) {
-			extension.endNativeFunctionAnalysis();
-		}
+	@Override
+	protected String getCodeGeneratorExtensionPoint() {
+		return Activator.PLUGIN_ID
+		+ ".ArchitectureDependentCodeGenerator";
 	}
 
-	public void newUserDefinedNativeMehtod(int methodNumber,
-			String uniqueMethodIdentifier, Method javaMethod) {
-
-		for (ArchitectureDependentCodeGenerator extension : extensions) {
-			extension.newUserNativeFunction(methodNumber,
-					uniqueMethodIdentifier, javaMethod);
-		}
-
+	@Override
+	protected String getCodeGeneratorExtensionElement() {
+		return "class";
 	}
 
 }

@@ -3,7 +3,7 @@
 <schema targetNamespace="icecaptools" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="icecaptools" id="CodeGenerator" name="CodeGenerator"/>
+         <meta.schema plugin="icecaptools" id="icecapAdditionalResourceManager" name="icecapAdditionalResourceManager"/>
       </appinfo>
       <documentation>
          [Enter description of this extension point.]
@@ -17,9 +17,9 @@
          </appinfo>
       </annotation>
       <complexType>
-         <choice minOccurs="0" maxOccurs="unbounded">
-            <element ref="CodeGenerator"/>
-         </choice>
+         <sequence minOccurs="0" maxOccurs="unbounded">
+            <element ref="AdditionalResourceManager"/>
+         </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
                <documentation>
@@ -47,7 +47,7 @@
       </complexType>
    </element>
 
-   <element name="CodeGenerator">
+   <element name="AdditionalResourceManager">
       <complexType>
          <attribute name="class" type="string">
             <annotation>
@@ -55,7 +55,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":extensions.ArchitectureDependentCodeGenerator"/>
+                  <meta.attribute kind="java" basedOn="extensions.ResourceManagerDescriptor:"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -68,7 +68,7 @@
       </appinfo>
       <documentation>
          [Enter the first release in which this extension point appears.]
-      </documentation>extensions.ArchitectureDependentCodeGenerator
+      </documentation>
    </annotation>
 
    <annotation>

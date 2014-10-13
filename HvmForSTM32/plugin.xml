@@ -8,10 +8,16 @@
       </AdditionalResourceManager>
    </extension>
    <extension
-         point="icecaptools.CodeGenerator">
-      <CodeGenerator
+         point="icecaptools.NativeMethodCodeGenerator">
+      <NativeMethodCodeGenerator
+            class="hvmforstm32.Stm32NativeMethodGenerator">
+      </NativeMethodCodeGenerator>
+   </extension>
+   <extension
+         point="icecaptools.ArchitectureDependentCodeGenerator">
+      <ArchitectureDependentCodeGenerator
             class="hvmforstm32.Stm32OsTypes">
-      </CodeGenerator>
+      </ArchitectureDependentCodeGenerator>
    </extension>
 
 </plugin>

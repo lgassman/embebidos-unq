@@ -66,6 +66,7 @@ public class Compiler {
     private ClassInheritanceMatrix classMatrix;
     
     private ArchitectureDependentCodeDetector architectureDependentCodeDetector = new ArchitectureDependentCodeDetector();
+    private NativeMethodDetector nativeMethodDetector = new NativeMethodDetector();
 
     public Compiler(IDGenerator idGen, RequiredMethodsManager rmManager, IcecapTool manager) {
         this.idGen = idGen;
@@ -499,7 +500,7 @@ public class Compiler {
         HVMProperties props = tool.getProperties();
 
         MemorySegment sb = new MemorySegment(props);
-        this.architectureDependentCodeDetector.startAnalysis();
+        this.nativeMethodDetector.startAnalysis();
         try {
             outputFolder = checkOutputFolder(outputFolder);
             sourceFile = new FileOutputStream(outputFolder + filename + ".c");
@@ -650,7 +651,7 @@ public class Compiler {
                 } else {
                     nfileManager.addNativeMethod(methodNumber, "n_" + uniqueMethodId, javaMethod, manager.skipMethodHack(currentMethod.getClassName(), currentMethod.getName(), currentMethod.getSignature()));
                     if(javaMethod.isNative() && ! uniqueMethodId.contains("java_lang")) {                    	
-                    	this.architectureDependentCodeDetector.newUserDefinedNativeMehtod(methodNumber, "n_" + uniqueMethodId, javaMethod);
+                    	this.nativeMethodDetector.newUserDefinedNativeMehtod(methodNumber, "n_" + uniqueMethodId, javaMethod);
                     }
                     methodInfoArray.print("0");
                     methodInfoArray.print(", 0");
@@ -827,7 +828,7 @@ public class Compiler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.architectureDependentCodeDetector.endAnalysis();
+        this.nativeMethodDetector.endAnalysis();
     }
 
     private String oraganizeRequiredIncludes(LabeledMemorySegment requiredIncludes) {
