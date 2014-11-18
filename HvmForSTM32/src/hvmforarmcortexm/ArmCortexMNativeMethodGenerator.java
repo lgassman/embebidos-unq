@@ -22,21 +22,7 @@ public class ArmCortexMNativeMethodGenerator implements NativeMethodCodeGenerato
 	private PrintWriter userNativeFunctionWriter;
 	private String oldFileContent;
 
-	public static final Map<Type, String> types = new HashMap<Type, String>();
-
-	static {
-		// TODO, review types
-		types.put(Type.BOOLEAN, "int8");
-		types.put(Type.BYTE, "int8");
-		types.put(Type.CHAR, "int8");
-		types.put(Type.DOUBLE, "double");
-		types.put(Type.FLOAT, "float");
-		types.put(Type.INT, "int32");
-		types.put(Type.LONG, "int64");
-		types.put(Type.OBJECT, "Object");
-		types.put(Type.SHORT, "int16");
-	}
-
+	
 	@Override
 	public void newUserNativeFunction(int methodNumber,
 			String uniqueMethodIdentifier, Method javaMethod) {
@@ -71,25 +57,26 @@ public class ArmCortexMNativeMethodGenerator implements NativeMethodCodeGenerato
 
 		int index = 0;
 		if (!javaMethod.isStatic()) {
-			function.append("Object this = (Object)*((int32 *)(pointer)(sp));\n\n");
+			function.append("pointer self = (pointer)sp[0];\n\n");
 			;
 			index = 1;
 		}
 
 		for (int j = 0; j < javaMethod.getArgumentTypes().length; j++) {
 			Type key = javaMethod.getArgumentTypes()[j];
-			String type = getCType(key);
-			function.append(type);
+			HvmTypeConverter type = HvmTypeConverter.forJavaType(key);
+			function.append(type.getHvmType());
 			function.append(" arg");
 			function.append(j);
 			function.append(" = ");
-			function.append("(");
-			function.append(type);
-			function.append(")*((int32 *)(pointer)(sp + ");
-			function.append(index++);
-			function.append("));\n");
+			function.append(type.retriveFromSp(index++));
+			function.append("\n");
 		}
 
+		function.append("\n");
+		HvmTypeConverter returnType = HvmTypeConverter.forJavaType(javaMethod.getReturnType());
+		
+		function.append(returnType.asBody());		
 		function.append("\nreturn -1;\n");
 		function.append("}");
 		return function.toString();
@@ -99,13 +86,6 @@ public class ArmCortexMNativeMethodGenerator implements NativeMethodCodeGenerato
 		return "int16 " + uniqueMethodIdentifier + "(int32 *sp)";
 	}
 
-	private String getCType(Type key) {
-		String ctype = types.get(key);
-		if (ctype == null) {
-			return "Object";
-		}
-		return ctype;
-	}
 
 	@Override
 	public void startNativeFunctionAnalysis() {
