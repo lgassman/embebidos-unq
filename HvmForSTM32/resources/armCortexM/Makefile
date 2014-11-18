@@ -1,13 +1,10 @@
 
-# Put your stlink folder here so make burn will work.
-STLINK=/opt/stlink
-
 # Put your source files here (or *.c, etc)
 #SRCS=main.c system_stm32f4xx.c
-SRCS=../classes.c ../icecapvm.c ../methodinterpreter.c ../methods.c ../gc.c ../natives_allOS.c  ../allocation_point.c ../print.c natives_stm32.c  user_natives.c
+SRCS=../classes.c ../icecapvm.c ../methodinterpreter.c ../methods.c ../gc.c ../natives_allOS.c  ../allocation_point.c ../print.c natives_armCortexM.c  user_natives.c armCortexM_interrupt.s
 
 # Binaries will be generated with this name (.elf, .bin, .hex, etc)
-PROJ_NAME=hvmExampleOutput
+PROJ_NAME=hvmAppArmCortexM
 
 
 # Normally you shouldn't need to change anything below this line!
@@ -19,7 +16,7 @@ OBJCOPY=arm-none-eabi-objcopy
 #Estos son los flags del documento de referencia de hvm
 # -Wall -pedantic -Werror -g -Os -DJAVA_HEAP_SIZE=1000 -DJAVA_STACK_SIZE=1024
 
-CFLAGS  = -g -O2 -Wall -Wno-unused-variable -Tstm32_flash.ld -DJAVA_HEAP_SIZE=1000 -DJAVA_STACK_SIZE=1024 -DSTM32
+CFLAGS  = -g -O2 -Wall -Wno-unused-variable -Tstm32_flash.ld -DJAVA_HEAP_SIZE=1000 -DJAVA_STACK_SIZE=1024 -DARMCORTEXM
 CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork
 CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 CFLAGS += -I.
@@ -49,4 +46,4 @@ clean:
 
 # Flash the STM32F4
 burn: proj
-	$(STLINK)/st-flash write $(PROJ_NAME).bin 0x8000000
+	st-flash write $(PROJ_NAME).bin 0x8000000

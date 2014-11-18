@@ -85,9 +85,9 @@ int16 n_vm_RealtimeClock_getNativeTime(int32 *sp){
 /*Must return the value of the stack
 pointer as it was when calling the function. Refer to existing implemen-
 tations*/
-pointer* get_stack_pointer(void) {
+/*pointer* get_stack_pointer(void) {
 	return 0;
-}
+}*/
 
 /*
 Must set the value of the stack pointer
@@ -96,9 +96,9 @@ stackPointer
 and return to the caller.
 Refer to existing implementations
 */
-void set_stack_pointer(void) {
+/*void set_stack_pointer(void) {
 }
-
+*/
 /*Prints a byte. Used to print mes-
 sages the console. Can be left empty. If a UART is available this can be
 used for printing. On platforms supporting
@@ -130,10 +130,7 @@ void n_devices_System_blink() {
 }
 
 
-poniter n_hello_HelloWorld_holaNativo(pointer a, pointer b, int32 c) {
 
-return -1;
-}
 
 
 

@@ -1,4 +1,4 @@
-package hvmforstm32;
+package hvmforarmcortexm;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,7 +17,7 @@ import org.eclipse.core.runtime.Platform;
 
 import extensions.NativeMethodCodeGenerator;
 
-public class Stm32NativeMethodGenerator implements NativeMethodCodeGenerator{
+public class ArmCortexMNativeMethodGenerator implements NativeMethodCodeGenerator{
 	
 	private PrintWriter userNativeFunctionWriter;
 	private String oldFileContent;
@@ -119,11 +119,11 @@ public class Stm32NativeMethodGenerator implements NativeMethodCodeGenerator{
 			if (!file.exists()) {
 				file.mkdir();
 			}
-			file = new File(folderName + "/stm32");
+			file = new File(folderName + "/" + Activator.FOLDER);
 			if (!file.exists()) {
 				file.mkdir();
 			}
-			file = new File(folderName + "/stm32/user_natives.c");
+			file = new File(folderName + "/" + Activator.FOLDER + "/user_natives.c");
 			if (!file.exists()) {
 				file.createNewFile();
 				userNativeFunctionWriter = new PrintWriter(new BufferedWriter(

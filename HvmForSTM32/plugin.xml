@@ -4,19 +4,19 @@
    <extension
          point="icecaptools.AdditionalResourceManager">
       <AdditionalResourceManager
-            class="hvmforstm32.Stm32ResourceManagerDescriptor">
+            class="hvmforarmcortexm.ArmCortexMResourceManagerDescriptor">
       </AdditionalResourceManager>
    </extension>
    <extension
          point="icecaptools.NativeMethodCodeGenerator">
       <NativeMethodCodeGenerator
-            class="hvmforstm32.Stm32NativeMethodGenerator">
+            class="hvmforarmcortexm.ArmCortexMNativeMethodGenerator">
       </NativeMethodCodeGenerator>
    </extension>
    <extension
          point="icecaptools.ArchitectureDependentCodeGenerator">
       <ArchitectureDependentCodeGenerator
-            class="hvmforstm32.Stm32OsTypes">
+            class="hvmforarmcortexm.ArmCortexMOsTypes">
       </ArchitectureDependentCodeGenerator>
    </extension>
 

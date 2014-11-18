@@ -1,4 +1,4 @@
-package hvmforstm32;
+package hvmforarmcortexm;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,13 +18,13 @@ import org.eclipse.core.runtime.Platform;
 
 import extensions.ArchitectureDependentCodeGenerator;
 
-public class Stm32OsTypes implements ArchitectureDependentCodeGenerator {
+public class ArmCortexMOsTypes implements ArchitectureDependentCodeGenerator {
 
 	@Override
 	public void tokenDetected(String file, OutputStream stream)
 			throws IOException {
 		if (file.equals("ostypes.h")) {
-			stream.write("\n#if defined(STM32)\n".getBytes());
+			stream.write("\n#if defined(ARMCORTEXM)\n".getBytes());
 			stream.write("#define DATAMEM\n".getBytes());
 			stream.write("#define PROGMEM\n".getBytes());
 			stream.write("#define RANGE\n".getBytes());
