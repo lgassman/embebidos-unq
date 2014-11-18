@@ -6,7 +6,14 @@ import java.io.OutputStream;
 
 public interface ArchitectureDependentCodeGenerator {
 
-	/** Token to include architecture dependent code detected*/
+	/** 
+	 * This method is invoked when the token: 
+	 * "Token to include architecture dependent code detected" is detected
+	 * into a file while this file is being copied to output folder
+	 * @param file File Name
+	 * @param Stream Output stream ready to use in the exact place where 
+	 * 		  the token was detected. You don't must close this stream
+	 * */
 	public void tokenDetected(String file, OutputStream Stream) throws IOException;
 
 }
