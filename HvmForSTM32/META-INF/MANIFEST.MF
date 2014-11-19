@@ -7,7 +7,10 @@ Bundle-Activator: hvmforarmcortexm.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  icecaptools,
- org.eclipse.cdt.core
+ org.eclipse.cdt.core,
+ org.eclipse.core.databinding,
+ org.eclipse.core.databinding.beans,
+ org.eclipse.jface.databinding
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/bcel-6.0.jar,
