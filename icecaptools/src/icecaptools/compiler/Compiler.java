@@ -55,6 +55,7 @@ import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.classfile.RuntimeInvisibleAnnotations;
 import org.apache.bcel.generic.Type;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 public class Compiler {
@@ -67,12 +68,13 @@ public class Compiler {
 
     private ClassInheritanceMatrix classMatrix;
     
-    private ArchitectureDependentCodeDetector architectureDependentCodeDetector = new ArchitectureDependentCodeDetector();
+    private ArchitectureDependentCodeDetector architectureDependentCodeDetector;
     private NativeMethodDetector nativeMethodDetector = new NativeMethodDetector();
 
     public Compiler(IDGenerator idGen, RequiredMethodsManager rmManager, IcecapTool manager) {
         this.idGen = idGen;
         this.rmManager = rmManager;
+        architectureDependentCodeDetector = new ArchitectureDependentCodeDetector((IProject) manager.getProjectResource().getAdapter(IProject.class));
         try {
             String newlineSeq = manager.getProperties().getNewlineSequence();
             if ((newlineSeq.length() > 0) && (!("\n".equals(newlineSeq)))) {

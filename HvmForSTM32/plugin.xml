@@ -21,6 +21,32 @@
       <ArchitectureDependentCodeGenerator
             class="hvmforarmcortexm.ArmCortexMOsTypes">
       </ArchitectureDependentCodeGenerator>
+      <ArchitectureDependentCodeGenerator
+            class="hvmforarmcortexm.makefile.AdditionalSourcesMakeFile">
+      </ArchitectureDependentCodeGenerator>
+      <ArchitectureDependentCodeGenerator
+            class="hvmforarmcortexm.makefile.BurnToolMakeFile">
+      </ArchitectureDependentCodeGenerator>
+      <ArchitectureDependentCodeGenerator
+            class="hvmforarmcortexm.makefile.CompilerFlagMakeFile">
+      </ArchitectureDependentCodeGenerator>
+      <ArchitectureDependentCodeGenerator
+            class="hvmforarmcortexm.makefile.CompilerMakeFile">
+      </ArchitectureDependentCodeGenerator>
+      <ArchitectureDependentCodeGenerator
+            class="hvmforarmcortexm.makefile.LibrariesMakeFile">
+      </ArchitectureDependentCodeGenerator>
+            <ArchitectureDependentCodeGenerator
+            class="hvmforarmcortexm.makefile.ObjectCopyMakeFile">
+      </ArchitectureDependentCodeGenerator>
+            <ArchitectureDependentCodeGenerator
+            class="hvmforarmcortexm.makefile.OutputNameMakefile">
+      </ArchitectureDependentCodeGenerator>
+      
+      
+      
+      
+      
    </extension>
 	<extension point="org.eclipse.ui.propertyPages">
 		<page name="HVM for ARM Cortex M" 

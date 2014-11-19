@@ -39,9 +39,15 @@ public class HvmForArmCortexMPropertyPage extends PropertyPage {
 		model = new HvmForArmCortexArmProperties();
 		model.load(getPreferences());
 		final Composite composite = new Composite(parent, SWT.NONE);
-		addText(composite, 	"Source Files", "sourceFiles", "useDefaultMakeFile");
+		addText(composite, 	"Additional Source Files", "sourceFiles", "useDefaultMakeFile");
+		addText(composite, 	"Compiler flags", "compilerFlags", "useDefaultMakeFile");
 		addText(composite, 	"Additional C Libraries", "libraries", "useDefaultMakeFile");
-		addText(composite, 	"Burn Tool", "burnTool", "useDefaultMakeFile");
+		addText(composite, 	"Compiler", "compiler", "useDefaultMakeFile");
+		addText(composite, 	"Object Copy Tool", "objCopy", "useDefaultMakeFile");
+		addText(composite, 	"Burn Tool Command", "burnTool", "useDefaultMakeFile");
+		addText(composite, 	"Out File Name", "outFile", "useDefaultMakeFile");
+		
+		
 		addBoolean(composite, 	"Use Alternative MakeFile", "useAlternativeMakeFile");
 		addText(composite, 	"Alternative MakeFile", "alternativeMakeFile", "useAlternativeMakeFile");
 

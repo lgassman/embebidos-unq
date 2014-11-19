@@ -3,6 +3,8 @@ package extensions;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.eclipse.core.resources.IProject;
+
 
 public interface ArchitectureDependentCodeGenerator {
 
@@ -14,7 +16,7 @@ public interface ArchitectureDependentCodeGenerator {
 	 * @param Stream Output stream ready to use in the exact place where 
 	 * 		  the token was detected. You don't must close this stream
 	 * */
-	public void tokenDetected(String file, OutputStream Stream) throws IOException;
+	public void tokenDetected(IProject project, String file, OutputStream Stream) throws IOException;
 	public String token();
 
 }

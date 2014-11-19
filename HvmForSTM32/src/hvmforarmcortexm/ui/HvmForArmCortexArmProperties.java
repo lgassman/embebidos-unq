@@ -13,22 +13,71 @@ public class HvmForArmCortexArmProperties  extends Model implements Cloneable {
 	public static String SOURCE_FILES = "sourceFiles";
 	public static String BURN_TOOL = "burnTool";
 	public static String LIBRARIES = "libraries";
-
+	public static String COMPILER = "compiler";
+	public static String OUTFILE = "outFile";
+	public static String OBJCOPY = "objCopy";
+	public static String COMPILERFLAGS = "compilerFlags";
+	
 	public static boolean USE_ALTERNATIVE_MAKEFILE_DEFAULT = false;
 	public static String ALTERNATIVE_MAKEFILE_DEFAULT = "";
-	public static String SOURCE_FILES_DEFAULT = "sourceFiles.c";
-	public static String BURN_TOOL_DEFAULT = "stvlink";
-	public static String LIBRARIES_DEFAULT = "librariesDefault";
-
+	public static String SOURCE_FILES_DEFAULT = "";
+	public static String BURN_TOOL_DEFAULT = "st-flash write $(PROJ_NAME).bin 0x8000000";
+	public static String LIBRARIES_DEFAULT = "-I$(STM_COMMON)/Utilities/STM32F4-Discovery -I$(STM_COMMON)/Libraries/CMSIS/Include -I$(STM_COMMON)/Libraries/CMSIS/ST/STM32F4xx/Include -I$(STM_COMMON)/Libraries/STM32F4xx_StdPeriph_Driver/inc";
+	public static String COMPILER_DEFAULT = "arm-none-eabi-gcc";
+	public static String OUTFILE_DEFAULT = "application";
+	public static String OBJCOPY_DEFAULT = "arm-none-eabi-objcopy";
+	public static String COMPILERFLAGS_DEFAULT = "-g -O2 -Wall -Wno-unused-variable -Tstm32_flash.ld -DJAVA_HEAP_SIZE=1000 -DJAVA_STACK_SIZE=1024 -DARMCORTEXM -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I.";
 	
 	private boolean useAlternativeMakeFile = false;
 	private String alternativeMakeFile = "";
 	private String sourceFiles = "";
 	private String burnTool = "";
 	private String libraries = "";
+	private String compiler = "";
+	private String outFile = "";
+	private String objCopy = "";
+	private String compilerFlags = "";
 
-	public HvmForArmCortexArmProperties() {
+	public String getCompiler() {
+		return compiler;
 	}
+
+	public void setCompiler(String compiler) {
+		String old = this.compiler;
+		this.compiler = compiler;
+		this.firePropertyChange("compiler", old, this.compiler);
+	}
+
+	public String getOutFile() {
+		return outFile;
+	}
+
+	public void setOutFile(String outFile) {
+		String old = this.outFile;
+		this.outFile = outFile;
+		this.firePropertyChange("outFile", old, this.outFile);
+	}
+
+	public String getObjCopy() {
+		return objCopy;
+	}
+
+	public void setObjCopy(String objCopy) {
+		String old = this.objCopy;
+		this.objCopy = objCopy;
+		this.firePropertyChange("objCopy", old, this.objCopy);
+	}
+
+	public String getCompilerFlags() {
+		return compilerFlags;
+	}
+
+	public void setCompilerFlags(String compilerFlag) {
+		String old = this.compilerFlags;
+		this.compilerFlags = compilerFlag;
+		this.firePropertyChange("compilerFlags", old, this.compilerFlags);
+	}
+
 
 	public boolean isUseDefaultMakeFile() {
 		return !this.isUseAlternativeMakeFile();
@@ -97,6 +146,10 @@ public class HvmForArmCortexArmProperties  extends Model implements Cloneable {
 		this.setSourceFiles(preferences.get(SOURCE_FILES, SOURCE_FILES_DEFAULT));
 		this.setBurnTool(preferences.get(BURN_TOOL, BURN_TOOL_DEFAULT));
 		this.setLibraries(preferences.get(LIBRARIES, LIBRARIES_DEFAULT)) ;
+		this.setCompiler(preferences.get(COMPILER, COMPILER_DEFAULT)) ;
+		this.setCompilerFlags(preferences.get(COMPILERFLAGS, COMPILERFLAGS_DEFAULT)) ;
+		this.setObjCopy(preferences.get(OBJCOPY, OBJCOPY_DEFAULT)) ;
+		this.setOutFile(preferences.get(OUTFILE, OUTFILE_DEFAULT)) ;
 	}
 		
 	public void restoreDefault(IEclipsePreferences preferences) {
@@ -105,6 +158,10 @@ public class HvmForArmCortexArmProperties  extends Model implements Cloneable {
 		this.setSourceFiles(SOURCE_FILES_DEFAULT);
 		this.setBurnTool(BURN_TOOL_DEFAULT);
 		this.setLibraries(LIBRARIES_DEFAULT) ;
+		this.setCompiler(COMPILER_DEFAULT);
+		this.setCompilerFlags(COMPILERFLAGS_DEFAULT);
+		this.setObjCopy(OBJCOPY_DEFAULT);
+		this.setOutFile(OUTFILE_DEFAULT);
 	}
 	
 	private void fillPreferences(IEclipsePreferences preferences) {
@@ -113,6 +170,10 @@ public class HvmForArmCortexArmProperties  extends Model implements Cloneable {
 		preferences.put(SOURCE_FILES, this.getSourceFiles());
 		preferences.put(BURN_TOOL, this.getBurnTool());
 		preferences.put(LIBRARIES, this.getLibraries()) ;
+		preferences.put(COMPILER, this.getCompiler()) ;
+		preferences.put(COMPILERFLAGS, this.getCompilerFlags()) ;
+		preferences.put(OBJCOPY, this.getObjCopy()) ;
+		preferences.put(OUTFILE, this.getOutFile()) ;
 	}
 	
 	public void save(IEclipsePreferences preferences) {

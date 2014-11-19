@@ -3,12 +3,14 @@ package hvmforarmcortexm;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.eclipse.core.resources.IProject;
+
 import extensions.ArchitectureDependentCodeGenerator;
 
 public class ArmCortexMOsTypes implements ArchitectureDependentCodeGenerator {
 
 	@Override
-	public void tokenDetected(String file, OutputStream stream)
+	public void tokenDetected(IProject project, String file, OutputStream stream)
 			throws IOException {
 		if (file.equals("ostypes.h")) {
 			stream.write("\n#if defined(ARMCORTEXM)\n".getBytes());

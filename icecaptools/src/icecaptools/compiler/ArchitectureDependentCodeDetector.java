@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.bcel.classfile.Method;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -35,9 +36,11 @@ public class ArchitectureDependentCodeDetector extends ExtensionManager<Architec
 	private OutputStream stream;
 	int counter;
 	private List<TokenDetecter> detecters = new ArrayList<>();
+	private IProject project;
 
-	public ArchitectureDependentCodeDetector() {
+	public ArchitectureDependentCodeDetector(IProject project) {
 		super();
+		this.project = project;
 		for(ArchitectureDependentCodeGenerator g : this.getExtensions()) {
 			this.detecters.add(new TokenDetecter(g));
 		}
@@ -89,7 +92,7 @@ public class ArchitectureDependentCodeDetector extends ExtensionManager<Architec
 		
 		private void dispatchTokenDetectedEvent() {
 				try {
-					extension.tokenDetected(currentFile, stream);
+					extension.tokenDetected(project, currentFile, stream);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
