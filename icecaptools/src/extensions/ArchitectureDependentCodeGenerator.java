@@ -15,5 +15,6 @@ public interface ArchitectureDependentCodeGenerator {
 	 * 		  the token was detected. You don't must close this stream
 	 * */
 	public void tokenDetected(String file, OutputStream Stream) throws IOException;
+	public String token();
 
 }

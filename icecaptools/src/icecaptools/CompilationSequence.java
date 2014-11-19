@@ -410,7 +410,7 @@ public class CompilationSequence {
 
                 ResourceManager rManager = config.getResourceManager();
                 if (rManager == null) {
-                    rManager = additionalResourceManager.createResorceManager();
+                    rManager = additionalResourceManager.createResorceManager(config);
                 }
                 compiler.writeClassesToFile("classes", patcher, config, foCalc, usedElementsObserver, outputFolder, cregistry, rManager, out);
 

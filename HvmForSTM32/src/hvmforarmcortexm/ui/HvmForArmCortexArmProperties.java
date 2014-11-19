@@ -8,17 +8,17 @@ import org.osgi.service.prefs.BackingStoreException;
 
 public class HvmForArmCortexArmProperties  extends Model implements Cloneable {
 
-	private static String USE_ALTERNATIVE_MAKEFILE = "useAlternativeMakeFile";
-	private static String ALTERNATIVE_MAKEFILE = "alternativeMakeFile";
-	private static String SOURCE_FILES = "sourceFiles";
-	private static String BURN_TOOL = "burnTool";
-	private static String LIBRARIES = "libraries";
+	public static String USE_ALTERNATIVE_MAKEFILE = "useAlternativeMakeFile";
+	public static String ALTERNATIVE_MAKEFILE = "alternativeMakeFile";
+	public static String SOURCE_FILES = "sourceFiles";
+	public static String BURN_TOOL = "burnTool";
+	public static String LIBRARIES = "libraries";
 
-	private static boolean USE_ALTERNATIVE_MAKEFILE_DEFAULT = false;
-	private static String ALTERNATIVE_MAKEFILE_DEFAULT = "";
-	private static String SOURCE_FILES_DEFAULT = "sourceFiles.c";
-	private static String BURN_TOOL_DEFAULT = "stvlink";
-	private static String LIBRARIES_DEFAULT = "librariesDefault";
+	public static boolean USE_ALTERNATIVE_MAKEFILE_DEFAULT = false;
+	public static String ALTERNATIVE_MAKEFILE_DEFAULT = "";
+	public static String SOURCE_FILES_DEFAULT = "sourceFiles.c";
+	public static String BURN_TOOL_DEFAULT = "stvlink";
+	public static String LIBRARIES_DEFAULT = "librariesDefault";
 
 	
 	private boolean useAlternativeMakeFile = false;

@@ -1,31 +1,37 @@
 package icecaptools;
 
+import org.eclipse.core.resources.IProject;
+
+import icecaptools.conversion.ConversionConfiguration;
 import icecaptools.extensions.ExtensionManager;
-import extensions.ResourceManagerDescriptor;
+import extensions.BundleResourceManagerDescriptor;
+import extensions.ProjectResourcesManagerDescriptor;
+import extensions.ProjectResourcesManagerExtension;
 
-public class AdditionalResourceManager extends ExtensionManager<ResourceManagerDescriptor> {
+public class AdditionalResourceManager  {
 
-	@Override
-	protected String getCodeGeneratorExtensionPoint() {
-		return Activator.PLUGIN_ID + ".AdditionalResourceManager";
-	}
+	private PluginResourceManagerExtensions pluginsExtensions = new PluginResourceManagerExtensions();
+	private ProjectResourcesManagerExtension projectExtension = new ProjectResourcesManagerExtension();
+	
 
-	@Override
-	protected String getCodeGeneratorExtensionElement() {
-		return "class";
-	}
-
-	public ResourceManager createResorceManager() {
+	public ResourceManager createResorceManager(ConversionConfiguration config) {
 		PluginResourceManager manager = new PluginResourceManager();
-		if(this.getExtensions().isEmpty()) {
+		if(this.pluginsExtensions.getExtensions().isEmpty() &&
+				this.projectExtension.getExtensions().isEmpty()) {
 			return manager;
 		}
+		IProject project = (IProject) config.getProjectResource().getAdapter(IProject.class);
 		CompositeResourceManager composite = new CompositeResourceManager();
 		composite.addResourceManager(manager);
 		
-	    for(ResourceManagerDescriptor descriptor : this.getExtensions()) {
-			composite.addResourceManager(new PluginResourceManager(descriptor.getBundleName(), descriptor.getResourceNames()));
+	    for(BundleResourceManagerDescriptor descriptor : this.pluginsExtensions.getExtensions()) {
+			composite.addResourceManager(new PluginResourceManager(descriptor.getBundleName(), descriptor.getResourceNames(project)));
 		}
+	    
+	    for(ProjectResourcesManagerDescriptor descriptor : this.projectExtension.getExtensions()) {
+			composite.addResourceManager(new ProjectResourceManager(project, descriptor.getResourceNames(project)));
+		}
+	    
 	    return composite;
 	}
 	

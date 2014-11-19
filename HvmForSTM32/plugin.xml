@@ -2,10 +2,13 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="icecaptools.AdditionalResourceManager">
-      <AdditionalResourceManager
-            class="hvmforarmcortexm.ArmCortexMResourceManagerDescriptor">
-      </AdditionalResourceManager>
+         point="icecaptools.BundleResourceManager">
+      <BundleResourceManager class="hvmforarmcortexm.ArmCortexMPluginResourceManagerDescriptor">
+      </BundleResourceManager>
+   </extension>
+   <extension point="icecaptools.ProjectResourceManager">
+   	<ProjectResourceManager class="hvmforarmcortexm.ArmCortexMPorjectResourceManagerDescriptor">
+   	</ProjectResourceManager>
    </extension>
    <extension
          point="icecaptools.NativeMethodCodeGenerator">

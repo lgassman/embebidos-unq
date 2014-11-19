@@ -11,7 +11,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 
-import extensions.ResourceManagerDescriptor;
+import extensions.BundleResourceManagerDescriptor;
 
 public class PluginResourceManager extends ResourceManager {
 	

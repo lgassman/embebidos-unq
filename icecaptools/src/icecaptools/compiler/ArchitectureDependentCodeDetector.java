@@ -33,41 +33,27 @@ public class ArchitectureDependentCodeDetector extends ExtensionManager<Architec
 
 	private String currentFile;
 	private OutputStream stream;
-	private CharSequence token;
 	int counter;
-
-
-	public ArchitectureDependentCodeDetector(CharSequence token) {
-		super();
-		this.token = token;
-	}
+	private List<TokenDetecter> detecters = new ArrayList<>();
 
 	public ArchitectureDependentCodeDetector() {
-		this("/* Insert architecture dependent code here */");
+		super();
+		for(ArchitectureDependentCodeGenerator g : this.getExtensions()) {
+			this.detecters.add(new TokenDetecter(g));
+		}
 	}
 
 	public void fileStart(String file, OutputStream stream) {
 		currentFile = file;
 		this.stream = stream;
-		counter = 0;
-	}
-
-	public void newRead(char character) {
-		counter = token.charAt(counter) == character ? counter + 1 : 0;
-		if (counter == token.length()) {
-			dispatchTokenDetectedEvent();
-			counter = 0;
+		for(TokenDetecter detecter : this.detecters) {
+			detecter.counter = 0;
 		}
 	}
 
-
-	private void dispatchTokenDetectedEvent() {
-		for (ArchitectureDependentCodeGenerator extension : this.getExtensions()) {
-			try {
-				extension.tokenDetected(this.currentFile, this.stream);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
+	public void newRead(char character) {
+		for(TokenDetecter detecter : this.detecters) {
+			detecter.newRead(character);
 		}
 	}
 
@@ -81,5 +67,34 @@ public class ArchitectureDependentCodeDetector extends ExtensionManager<Architec
 	protected String getCodeGeneratorExtensionElement() {
 		return "class";
 	}
+	
+	
+	private class TokenDetecter {
+		private ArchitectureDependentCodeGenerator extension;
+		private int counter;
+		private String token ;
 
+		private TokenDetecter(ArchitectureDependentCodeGenerator extension) {
+			this.extension = extension;
+			this.token = extension.token();
+		}
+
+		public void newRead(char character) {
+			counter = token.charAt(counter) == character ? counter + 1 : 0;
+			if (counter == token.length()) {
+				dispatchTokenDetectedEvent();
+				counter = 0;
+			}			
+		}
+		
+		private void dispatchTokenDetectedEvent() {
+				try {
+					extension.tokenDetected(currentFile, stream);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+		}
+
+		
+	}
 }

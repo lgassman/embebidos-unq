@@ -59,6 +59,7 @@ public class ConverterJob extends Job {
         String outputFolder = preferenceStore.getString(SetOutputFolderAction.ICECAP_OUTPUTFOLDER);
 
         File oFile;
+        
 
         if ((outputFolder != null) && (outputFolder.length() > 0)) {
             oFile = new File(outputFolder);

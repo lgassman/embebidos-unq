@@ -45,6 +45,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
+import javax.tools.Tool;
+
 import org.apache.bcel.Repository;
 import org.apache.bcel.classfile.Attribute;
 import org.apache.bcel.classfile.Code;
@@ -71,7 +73,6 @@ public class Compiler {
     public Compiler(IDGenerator idGen, RequiredMethodsManager rmManager, IcecapTool manager) {
         this.idGen = idGen;
         this.rmManager = rmManager;
-
         try {
             String newlineSeq = manager.getProperties().getNewlineSequence();
             if ((newlineSeq.length() > 0) && (!("\n".equals(newlineSeq)))) {

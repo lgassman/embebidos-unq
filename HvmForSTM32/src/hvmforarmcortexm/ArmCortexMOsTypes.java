@@ -1,20 +1,7 @@
 package hvmforarmcortexm;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.bcel.classfile.Method;
-import org.apache.bcel.generic.Type;
-import org.eclipse.core.runtime.Platform;
 
 import extensions.ArchitectureDependentCodeGenerator;
 
@@ -42,6 +29,11 @@ public class ArmCortexMOsTypes implements ArchitectureDependentCodeGenerator {
 			stream.write("#endif\n".getBytes());
 		}
 
+	}
+
+	@Override
+	public String token() {
+		return "/* Insert architecture dependent code here */";
 	}
 
 }

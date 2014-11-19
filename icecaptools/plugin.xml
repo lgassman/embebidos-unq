@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="AdditionalResourceManager" name="AdditionalResourceManager" schema="schema/additionalResourceManager.exsd"/>
+   <extension-point id="BundleResourceManager" name="BundleResourceManager" schema="schema/additionalResourceManager.exsd"/>
    <extension-point id="ArchitectureDependentCodeGenerator" name="ArchitectureDependentCodeGenerator" schema="schema/architectureDependentCodeGenerator.exsd"/>
    <extension-point id="NativeMethodCodeGenerator" name="NativeMethodCodeGenerator" schema="schema/nativeMethodCodeGenerator.exsd"/>
+   <extension-point id="ProjectResourceManager" name="ProjectResourceManager" schema="schema/projectResourceManagers.exsd"/>
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
