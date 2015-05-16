@@ -1,6 +1,6 @@
 package hvmforarmcortexm.ui;
 
-import hvmforarmcortexm.Activator;
+import hvmforstm32.Activator;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeansObservables;
@@ -45,8 +45,7 @@ public class HvmForArmCortexMPropertyPage extends PropertyPage {
 		addText(composite, 	"Compiler", "compiler", "useDefaultMakeFile");
 		addText(composite, 	"Object Copy Tool", "objCopy", "useDefaultMakeFile");
 		addText(composite, 	"Burn Tool Command", "burnTool", "useDefaultMakeFile");
-		addText(composite, 	"Out File Name", "outFile", "useDefaultMakeFile");
-		
+		addText(composite, 	"Out File Name", "outFile", "useDefaultMakeFile");				
 		
 		addBoolean(composite, 	"Use Alternative MakeFile", "useAlternativeMakeFile");
 		addText(composite, 	"Alternative MakeFile", "alternativeMakeFile", "useAlternativeMakeFile");

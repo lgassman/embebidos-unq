@@ -1,7 +1,7 @@
 
 # Put your source files here (or *.c, etc)
 ADDITIONAL_SRCS=
-SRCS=../classes.c ../icecapvm.c ../methodinterpreter.c ../methods.c ../gc.c ../natives_allOS.c  ../allocation_point.c ../print.c natives_armCortexM.c  user_natives.c armCortexM_interrupt.s $(ADDITIONAL_SRCS)
+SRCS=  ./lib/system/src/cmsis/system_stm32f4xx.c ./lib/system/src/cmsis/vectors_stm32f4xx.c ./lib/system/src/cortexm/exception_handlers.c  ../classes.c ../icecapvm.c ../methodinterpreter.c ../methods.c ../gc.c ../natives_allOS.c  ../allocation_point.c ../print.c natives_armCortexM.c  user_natives.c armCortexM_interrupt.s  $(ADDITIONAL_SRCS)
 
 # Binaries will be generated with this name (.elf, .bin, .hex, etc)
 PROJ_NAME=
@@ -19,6 +19,7 @@ OBJCOPY=
 CFLAGS= 
 LIBRARIES=
 
+CFLAGS += $(STM_LIB_FILES) 
 CFLAGS += $(LIBRARIES) 
 
 # add startup file to build

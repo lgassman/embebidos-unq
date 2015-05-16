@@ -1,7 +1,7 @@
 package hvmforarmcortexm.makefile;
 
-import hvmforarmcortexm.Activator;
 import hvmforarmcortexm.ui.HvmForArmCortexArmProperties;
+import hvmforstm32.Activator;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -25,7 +25,7 @@ public abstract class MakeFileColaborator implements
 
 		if (node == null) {
 			node = new ProjectScope(project).getNode(Activator.PLUGIN_ID);
-			value = node.get(this.preference(), this.defaultValue());
+			value = getValue();
 			useAlternativeWorkspace = node
 					.getBoolean(
 							HvmForArmCortexArmProperties.USE_ALTERNATIVE_MAKEFILE,
@@ -36,6 +36,14 @@ public abstract class MakeFileColaborator implements
 			stream.write(value.getBytes(), 0, value.getBytes().length);
 		}
 
+	}
+
+	protected String getValue() {
+		return node.get(this.preference(), this.defaultValue());
+	}
+	
+	protected IEclipsePreferences getPreferences() {
+		return this.node;
 	}
 
 	@Override

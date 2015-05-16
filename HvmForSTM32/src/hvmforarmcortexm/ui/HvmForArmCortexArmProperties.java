@@ -1,5 +1,7 @@
 package hvmforarmcortexm.ui;
 
+import hvmforstm32.Activator;
+
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.osgi.service.prefs.BackingStoreException;
 
@@ -17,16 +19,17 @@ public class HvmForArmCortexArmProperties  extends Model implements Cloneable {
 	public static String OUTFILE = "outFile";
 	public static String OBJCOPY = "objCopy";
 	public static String COMPILERFLAGS = "compilerFlags";
+		
 	
 	public static boolean USE_ALTERNATIVE_MAKEFILE_DEFAULT = false;
 	public static String ALTERNATIVE_MAKEFILE_DEFAULT = "";
 	public static String SOURCE_FILES_DEFAULT = "";
 	public static String BURN_TOOL_DEFAULT = "st-flash write $(PROJ_NAME).bin 0x8000000";
-	public static String LIBRARIES_DEFAULT = "-I$(STM_COMMON)/Utilities/STM32F4-Discovery -I$(STM_COMMON)/Libraries/CMSIS/Include -I$(STM_COMMON)/Libraries/CMSIS/ST/STM32F4xx/Include -I$(STM_COMMON)/Libraries/STM32F4xx_StdPeriph_Driver/inc";
+	public static String LIBRARIES_DEFAULT = "-I./lib/system/include -I./lib/system/include/cmsis -I./lib/system/include/stm32f4-hal";
 	public static String COMPILER_DEFAULT = "arm-none-eabi-gcc";
 	public static String OUTFILE_DEFAULT = "application";
 	public static String OBJCOPY_DEFAULT = "arm-none-eabi-objcopy";
-	public static String COMPILERFLAGS_DEFAULT = "-g -O2 -Wall -Wno-unused-variable -Tstm32_flash.ld -DJAVA_HEAP_SIZE=1000 -DJAVA_STACK_SIZE=1024 -DARMCORTEXM -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I.";
+	public static String COMPILERFLAGS_DEFAULT = "-g -O2 -Wall -Wno-unused-variable -Tstm32_flash.ld -DJAVA_HEAP_SIZE=65536 -DTIMER_FREQUENCY_HZ=100u -DJAVA_STACK_SIZE=2048 -D" + Activator.ARCHTOKEN + " -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32F407xx -DUSE_HAL_DRIVER -DHSE_VALUE=8000000 -I.";
 	
 	private boolean useAlternativeMakeFile = false;
 	private String alternativeMakeFile = "";
@@ -184,6 +187,5 @@ public class HvmForArmCortexArmProperties  extends Model implements Cloneable {
 			throw new RuntimeException(e);
 		}
 	}
-		
 	
 }

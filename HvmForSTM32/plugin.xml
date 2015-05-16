@@ -3,23 +3,23 @@
 <plugin>
    <extension
          point="icecaptools.BundleResourceManager">
-      <BundleResourceManager class="hvmforarmcortexm.ArmCortexMPluginResourceManagerDescriptor">
+      <BundleResourceManager class="hvmforstm32.STMPluginResourceManagerDescriptor">
       </BundleResourceManager>
    </extension>
    <extension point="icecaptools.ProjectResourceManager">
-   	<ProjectResourceManager class="hvmforarmcortexm.ArmCortexMPorjectResourceManagerDescriptor">
+   	<ProjectResourceManager class="hvmforstm32.STMProjectResourceManagerDescriptor">
    	</ProjectResourceManager>
    </extension>
    <extension
          point="icecaptools.NativeMethodCodeGenerator">
       <NativeMethodCodeGenerator
-            class="hvmforarmcortexm.ArmCortexMNativeMethodGenerator">
+            class="hvmforstm32.STMNativeMethodGenerator">
       </NativeMethodCodeGenerator>
    </extension>
    <extension
          point="icecaptools.ArchitectureDependentCodeGenerator">
       <ArchitectureDependentCodeGenerator
-            class="hvmforarmcortexm.ArmCortexMOsTypes">
+            class="hvmforstm32.STMOsTypes">
       </ArchitectureDependentCodeGenerator>
       <ArchitectureDependentCodeGenerator
             class="hvmforarmcortexm.makefile.AdditionalSourcesMakeFile">
@@ -54,4 +54,10 @@
 			id="hvmforarmcortexm.ui.HvmForArmCortexMPropertyPage">
       </page>
     </extension>
+ <extension
+       point="icecaptools.BundleResourceManager">
+    <BundleResourceManager
+          class="hvmforstm32.STMARMPluginResourceManager">
+    </BundleResourceManager>
+ </extension>
 </plugin>
