@@ -25,7 +25,7 @@ public class AdditionalResourceManager  {
 		composite.addResourceManager(manager);
 		
 	    for(BundleResourceManagerDescriptor descriptor : this.pluginsExtensions.getExtensions()) {
-			composite.addResourceManager(new PluginResourceManager(descriptor.getBundleName(), descriptor.getResourceNames(project)));
+			composite.addResourceManager(new PluginResourceManager(descriptor.getBundleName(), descriptor.getResourceNames(project), descriptor.getAlias()));
 		}
 	    
 	    for(ProjectResourcesManagerDescriptor descriptor : this.projectExtension.getExtensions()) {
